@@ -1,3 +1,1 @@
 include::{commondir}/common-requirements.adoc[]
-
-You will need also an https://aws.amazon.com/account/[AWS Account]. 

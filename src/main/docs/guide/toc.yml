@@ -1,4 +1,6 @@
-gettingStarted: 
+training:
+  title: Training
+gettingStarted:
   title: Getting Started
   requirements: What you will need
   solution: Solution
@@ -10,5 +12,5 @@ writingTheApp:
   controller: Controller
   tests: Tests
 runningTheApp: Running the app
-nextSteps:
-  title: Next Steps
+helpWithGrails:
+  title: Help with Grails

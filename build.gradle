@@ -17,7 +17,7 @@ asciidoctorj {
     version = '1.5.6'
 }
 
-apply from:"https://raw.githubusercontent.com/micronaut-projects/micronaut-guides/master/gradle/guide-build.gradle"
+apply from:"https://raw.githubusercontent.com/grails/grails-guides/master/gradle/guide-build.gradle"
 
 htmlSanityCheck {
     sourceDir = new File("${project.buildDir}/docs")

@@ -1,4 +1,1 @@
-In this guide, we are going to demonstrate Micronaut https://docs.micronaut.io/snapshot/guide/index.html#transfers[file transfer] capabilities by creating
-an app which downloads an excel file with a list of books.
-
-include::{commondir}/common-annotationprocessors.adoc[]
+In this guide, we are going to demonstrate Grails file transfer capabilities by creating an app which downloads an excel file with a list of books.

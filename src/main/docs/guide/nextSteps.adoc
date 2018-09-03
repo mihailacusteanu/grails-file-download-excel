@@ -1,1 +1,0 @@
-Read more about https://docs.micronaut.io/latest/guide/index.html#transfers[File Transfers] support inside Micronaut.
