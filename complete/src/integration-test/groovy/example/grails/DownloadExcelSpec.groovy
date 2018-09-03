@@ -23,7 +23,7 @@ class DownloadExcelSpec extends GebSpec {
         browser.at HomePage
 
         when: 'clicking excel button'
-        String expectedPath = System.getProperty('download.folder') + "/" + BookExcelService.FILENAME
+        String expectedPath = System.getProperty('download.folder') + "/" + BookExcelService.EXCEL_FILENAME
         File outputFile = new File(expectedPath)
         browser.page(HomePage).downloadExcel()
 

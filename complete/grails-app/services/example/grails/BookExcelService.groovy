@@ -8,10 +8,12 @@ class BookExcelService {
     public static final String SHEET_NAME = "Books"
     public static final String HEADER_ISBN = "Isbn"
     public static final String HEADER_NAME = "Name"
-    public static final String FILENAME = "books.xlsx"
+    public static final String EXCEL_FILE_SUFIX = ".xlsx"
+    public static final String EXCEL_FILE_PREFIX = "books"
+    public static final String EXCEL_FILENAME = EXCEL_FILE_PREFIX + EXCEL_FILE_SUFIX
 
     void exportExcelFromBooks(OutputStream outs, List<Book> bookList) {
-        File file = new File(FILENAME)
+        File file = File.createTempFile(EXCEL_FILE_PREFIX, EXCEL_FILE_SUFIX)
         PoiSpreadsheetBuilder.create(outs).build {
             apply BookExcelStylesheet
             sheet(SHEET_NAME) { s ->
