@@ -1,0 +1,54 @@
+Often, file transfers remain untested in many applications. In this section, you will see how
+easy is to test that the file downloads but also that the downloaded file contents match our expectations.
+
+include::{commondir}/common-spockinjavaapp.adoc[]
+
+We use also, Geb; a browser automation solution.
+
+To use Geb, add dependencies:
+
+[source, groovy]
+.build.gradle
+----
+include::{sourceDir}/build.gradle[tag=geb]
+----
+
+Create a Geb Configuration file. We configure some chrome options to control the download path.
+
+[source, groovy]
+.src/test/resources/GebConfig.groovy
+----
+include::{sourceDir}/src/test/resources/GebConfig.groovy[]
+----
+
+<1> Disable confirmation popups
+<2> Configure the download folder
+
+Geb uses the Page concept pattern - The Page Object Pattern gives us a common sense way to model content in a reusable and maintainable way. Create a Geb Page to encapsulate the Excel link:
+
+[source, groovy]
+.src/test/groovy/example/micronaut/HomePage.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/HomePage.groovy[]
+----
+
+include::{commondir}/common-webdriverbinaries.adoc[]
+
+<1> Pass system property `geb.env` to the tests.
+<2> Pass system property `download.folder` to the tests.
+
+Create a test which verifies the Excel file is downloaded and the content matches our expectations.
+
+[source, groovy]
+.src/test/groovy/example/micronaut/DownloadExcelSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/DownloadExcelSpec.groovy[]
+----
+
+To run the tests:
+
+[source,bash]
+----
+$ ./gradlew -Dgeb.env=chrome -Ddownload.folder=/Users/sdelamo/Downloads test
+$ open build/reports/tests/test/index.html
+----

@@ -1,0 +1,5 @@
+micronaut:
+    application:
+        name: exceldownloader
+    server:
+        port: 8080

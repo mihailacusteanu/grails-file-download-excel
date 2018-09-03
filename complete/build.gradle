@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.15"
+//tag::buildscriptDependenciesWebdriverBinaries[]
+        classpath "gradle.plugin.com.energizedwork.webdriver-binaries:webdriver-binaries-gradle-plugin:1.4"
+//end::buildscriptDependenciesWebdriverBinaries[]
+    }
+}
+
+version "0.1"
+group "example.micronaut"
+
+apply plugin:"io.spring.dependency-management"
+apply plugin:"com.github.johnrengelman.shadow"
+apply plugin:"application"
+apply plugin:"groovy"
+apply plugin:"net.ltgt.apt-eclipse"
+apply plugin:"net.ltgt.apt-idea"
+//tag::applyPluginWebdriverBinaries[]
+apply plugin:"com.energizedwork.webdriver-binaries"
+//end::applyPluginWebdriverBinaries[]
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "io.micronaut:bom:$micronautVersion"
+    }
+}
+
+dependencies {
+    annotationProcessor "io.micronaut:inject-java"
+    compile "io.micronaut:inject"
+    compile "io.micronaut:runtime"
+    compile "io.micronaut:http-server-netty"
+    compile "io.micronaut:http-client"
+    compileOnly "io.micronaut:inject-java"
+    runtime "ch.qos.logback:logback-classic:1.2.3"
+    testCompile "io.micronaut:inject-java"
+    testCompile "org.hamcrest:hamcrest-all:1.3"
+
+    //tag::views[]
+    compile "io.micronaut:views"
+    runtime "org.thymeleaf:thymeleaf:3.0.9.RELEASE"
+    //end::views[]
+
+    //tag::geb[]
+    testCompile "org.gebish:geb-spock:2.2"
+    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:3.12.0"
+    testCompile "org.seleniumhq.selenium:selenium-support:3.12.0"
+    testCompile "org.seleniumhq.selenium:selenium-remote-driver:3.12.0"
+    testCompile "org.seleniumhq.selenium:selenium-api:3.12.0"
+    //end::geb[]
+
+    //tag::spreadsheetbuilder[]
+    compile 'builders.dsl:spreadsheet-builder-poi:1.0.5'
+    //end::spreadsheetbuilder[]
+
+    //tag::spock[]
+    testCompile "org.codehaus.groovy:groovy-all:2.5.2"
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+    //end::spock[]
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
+
+mainClassName = "example.micronaut.Application"
+compileJava.options.compilerArgs += '-parameters'
+compileTestJava.options.compilerArgs += '-parameters'
+
+//tag::webdriverBinaries[]
+webdriverBinaries {
+    chromedriver '2.41'
+    geckodriver '0.21.0'
+}
+//end::webdriverBinaries[]
+
+//tag::taskWithTypeTest[]
+tasks.withType(Test) {
+    systemProperty "geb.env", System.getProperty('geb.env') // <1>
+    systemProperty "download.folder", System.getProperty('download.folder') // <2>
+    beforeTest { descriptor -> logger.quiet " -- $descriptor" }
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat 'full'
+    }
+}
+//end::taskWithTypeTest[]

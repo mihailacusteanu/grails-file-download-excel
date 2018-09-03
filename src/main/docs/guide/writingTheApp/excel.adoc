@@ -1,0 +1,27 @@
+Create a interface to encapsulate Excel generation:
+
+[source, java]
+.src/main/java/example/micronaut/BookExcelService.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/BookExcelService.java[]
+----
+
+<1> `AttachedFile` is used as the return value of a route execution to indicate the given file should be downloaded by the client instead of displayed.
+
+Externalize your styles configuration into a class implementing `builders.dsl.spreadsheet.builder.api.Stylesheet` interface to maximize code reuse.
+
+[source, java]
+.src/main/java/example/micronaut/BookExcelStylesheet.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/BookExcelStylesheet.java[]
+----
+
+Create a bean which generates the excel file.
+
+[source, java]
+.src/main/java/example/micronaut/BookExcelServiceImpl.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/BookExcelServiceImpl.java[]
+----
+
+<1> To register a Singleton in Micronaut’s application context annotate your class with `javax.inject.Singleton`

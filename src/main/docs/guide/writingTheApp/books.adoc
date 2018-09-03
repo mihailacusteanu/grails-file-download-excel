@@ -1,0 +1,25 @@
+Create `Book` POJO:
+
+[source, java]
+.src/main/java/example/micronaut/Book.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/Book.java[]
+----
+
+Create an interface to encapsulate Book retrieval.
+
+[source, java]
+.src/main/java/example/micronaut/BookRepository.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/BookRepository.java[]
+----
+
+Create a bean which implements the previous interface
+
+[source, java]
+.src/main/java/example/micronaut/BookRepositoryImpl.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/BookRepositoryImpl.java[]
+----
+
+<1> To register a Singleton in Micronaut’s application context annotate your class with `javax.inject.Singleton`
