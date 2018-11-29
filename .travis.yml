@@ -9,7 +9,6 @@ env:
 addons:
   firefox: latest
   chrome: stable
-sudo: required
 language: java
 cache:
   directories:
