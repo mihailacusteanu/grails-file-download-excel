@@ -17,6 +17,7 @@ version "0.1"
 group "example.grails"
 
 task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
 
 apply plugin:"eclipse"
 apply plugin:"idea"
